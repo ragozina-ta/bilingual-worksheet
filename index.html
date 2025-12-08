@@ -1962,6 +1962,22 @@
                             <input type="text" id="match-b" class="match-input" placeholder="Введите номер (1-4)">
                         </div>
                     </div>
+
+                    <!-- Вторая строка картинок -->
+                <div class="two-columns images-first" style="margin-top: 20px;">
+                    <div class="images-column">
+                        <div class="image-item">
+                            <div class="image-label">C</div>
+                            <img src="https://domik-lisi.ru/biology/human/tkani/myshechnaya-tkan/images/cardiac_hu9274eb2d90380dbd3e00ca8301a43c75_38605_780x0_resize_q75_h2_lanczos.webp" alt="Muscle tissue" class="tissue-image">
+                            <input type="text" id="match-c" class="match-input" placeholder="Введите номер (1-4)">
+                        </div>
+                        
+                        <div class="image-item">
+                            <div class="image-label">D</div>
+                            <img src="https://images-cdn.onlinetestpad.net/96/b5/732b9ecf4a18b98c4f31b0444683.jpg" alt="Nervous tissue" class="tissue-image">
+                            <input type="text" id="match-d" class="match-input" placeholder="Введите номер (1-4)">
+                        </div>
+                    </div>
                     
                     <!-- Правый столбец: названия тканей -->
                     <div class="names-column">
@@ -1986,22 +2002,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Вторая строка картинок -->
-                <div class="two-columns images-first" style="margin-top: 20px;">
-                    <div class="images-column">
-                        <div class="image-item">
-                            <div class="image-label">C</div>
-                            <img src="https://domik-lisi.ru/biology/human/tkani/myshechnaya-tkan/images/cardiac_hu9274eb2d90380dbd3e00ca8301a43c75_38605_780x0_resize_q75_h2_lanczos.webp" alt="Muscle tissue" class="tissue-image">
-                            <input type="text" id="match-c" class="match-input" placeholder="Введите номер (1-4)">
-                        </div>
-                        
-                        <div class="image-item">
-                            <div class="image-label">D</div>
-                            <img src="https://images-cdn.onlinetestpad.net/96/b5/732b9ecf4a18b98c4f31b0444683.jpg" alt="Nervous tissue" class="tissue-image">
-                            <input type="text" id="match-d" class="match-input" placeholder="Введите номер (1-4)">
-                        </div>
-                    </div>
                     
                     <div class="names-column" style="visibility: hidden;">
                         <!-- Пустой столбец для выравнивания -->
@@ -2448,6 +2448,34 @@
                 navigator.vibrate(100);
             }
         }
+
+        // Сохраняем прогресс в localStorage
+            const saveProgress = () => {
+                const inputs = document.querySelectorAll('input[type="text"], input[type="date"], textarea');
+                const progress = {};
+                
+                inputs.forEach(input => {
+                    if (input.id && input.value.trim()) {
+                        progress[input.id] = input.value;
+                    }
+                });
+                
+                localStorage.setItem('worksheetProgress', JSON.stringify(progress));
+            };
+            
+            // Загружаем прогресс из localStorage
+            const loadProgress = () => {
+                const saved = localStorage.getItem('worksheetProgress');
+                if (saved) {
+                    const progress = JSON.parse(saved);
+                    Object.keys(progress).forEach(id => {
+                        const input = document.getElementById(id);
+                        if (input) {
+                            input.value = progress[id];
+                        }
+                    });
+                }
+            };
         
         // Функция для печати
         function printWorksheet() {
@@ -2520,33 +2548,7 @@
                 }
             });
             
-            // Сохраняем прогресс в localStorage
-            const saveProgress = () => {
-                const inputs = document.querySelectorAll('input[type="text"], input[type="date"], textarea');
-                const progress = {};
-                
-                inputs.forEach(input => {
-                    if (input.id && input.value.trim()) {
-                        progress[input.id] = input.value;
-                    }
-                });
-                
-                localStorage.setItem('worksheetProgress', JSON.stringify(progress));
-            };
             
-            // Загружаем прогресс из localStorage
-            const loadProgress = () => {
-                const saved = localStorage.getItem('worksheetProgress');
-                if (saved) {
-                    const progress = JSON.parse(saved);
-                    Object.keys(progress).forEach(id => {
-                        const input = document.getElementById(id);
-                        if (input) {
-                            input.value = progress[id];
-                        }
-                    });
-                }
-            };
             
             // Загружаем сохраненный прогресс
             loadProgress();
