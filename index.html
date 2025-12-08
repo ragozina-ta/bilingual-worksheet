@@ -156,18 +156,39 @@
                 margin: 15px 0 !important;
             }
             
-            /* ПЕРЕСТАНОВКА: сначала все картинки A, B, C, D, потом все варианты 1, 2, 3, 4 */
-            .two-columns.images-first .images-column {
-                order: 1;
-            }
+            /* Для мобильных устройств */
+@media screen and (max-width: 768px) {
+    .mobile-task-2 {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .mobile-images-container,
+    .mobile-names-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    /* Скрываем десктопную версию */
+    .two-columns {
+        display: none !important;
+    }
+}
 
-            .two-columns.images-first .images-column2 {
-                order: 2;
-            }
-            
-            .two-columns.images-first .names-column {
-                order: 3;
-            }
+/* Для десктопов */
+@media screen and (min-width: 769px) {
+    .mobile-task-2 {
+        display: none !important;
+    }
+    
+    .two-columns {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+}
             
             .tissue-image {
                 height: 120px !important;
@@ -1950,70 +1971,58 @@
                     Match the picture and the name. Draw a line to match the tissue image with its name in Russian and English.
                 </div>
                 
-                <!-- ИЗМЕНЕНО: Добавлен класс images-first для мобильной перестановки -->
-                <div class="two-columns images-first">
-                    <!-- Левый столбец: картинки -->
-                    <div class="images-column">
-                        <div class="image-item">
-                            <div class="image-label">A</div>
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFAXeJRQF_s8M5LxqLz0AfgsLnq5iiYmQZrA&s" alt="Epithelial tissue" class="tissue-image">
-                            <input type="text" id="match-a" class="match-input" placeholder="Введите номер (1-4)">
-                        </div>
-                        
-                        <div class="image-item">
-                            <div class="image-label">B</div>
-                            <img src="https://domik-lisi.ru/biology/human/tkani/soedinitelnaya-tkan/images/kostnaya_hu7b2a0ca3bacedbc8f2d8386bc05ee27e_172164_780x0_resize_q75_h2_lanczos.webp" alt="Connective tissue" class="tissue-image">
-                            <input type="text" id="match-b" class="match-input" placeholder="Введите номер (1-4)">
-                        </div>
-                    </div>
-
-                    <!-- Вторая строка картинок -->
-                <div class="two-columns images-first" style="margin-top: 20px;">
-                    <div class="images-column2">
-                        <div class="image-item">
-                            <div class="image-label">C</div>
-                            <img src="https://domik-lisi.ru/biology/human/tkani/myshechnaya-tkan/images/cardiac_hu9274eb2d90380dbd3e00ca8301a43c75_38605_780x0_resize_q75_h2_lanczos.webp" alt="Muscle tissue" class="tissue-image">
-                            <input type="text" id="match-c" class="match-input" placeholder="Введите номер (1-4)">
-                        </div>
-                        
-                        <div class="image-item">
-                            <div class="image-label">D</div>
-                            <img src="https://images-cdn.onlinetestpad.net/96/b5/732b9ecf4a18b98c4f31b0444683.jpg" alt="Nervous tissue" class="tissue-image">
-                            <input type="text" id="match-d" class="match-input" placeholder="Введите номер (1-4)">
-                        </div>
-                    </div>
-                    
-                    <!-- Правый столбец: названия тканей -->
-                    <div class="names-column">
-                        <div class="name-item">
-                            <div class="name-label">1</div>
-                            <div class="tissue-name">Мышечная ткань / Muscle tissue</div>
-                        </div>
-                        
-                        <div class="name-item">
-                            <div class="name-label">2</div>
-                            <div class="tissue-name">Нервная ткань / Nervous tissue</div>
-                        </div>
-                        
-                        <div class="name-item">
-                            <div class="name-label">3</div>
-                            <div class="tissue-name">Соединительная ткань / Connective tissue</div>
-                        </div>
-                        
-                        <div class="name-item">
-                            <div class="name-label">4</div>
-                            <div class="tissue-name">Эпителиальная ткань / Epithelial tissue</div>
-                        </div>
-                    </div>
-                </div>
-                    
-                    <div class="names-column" style="visibility: hidden;">
-                        <!-- Пустой столбец для выравнивания -->
-                        <div class="name-item"></div>
-                        <div class="name-item"></div>
-                    </div>
-                </div>
-            </div>
+                <!-- Вместо двух отдельных two-columns блоков сделать один -->
+<div class="mobile-task-2">
+    <!-- Все картинки сначала -->
+    <div class="mobile-images-container">
+        <div class="image-item">
+            <div class="image-label">A</div>
+            <img src="..." alt="Epithelial tissue" class="tissue-image">
+            <input type="text" id="match-a" class="match-input" placeholder="Введите номер (1-4)">
+        </div>
+        
+        <div class="image-item">
+            <div class="image-label">B</div>
+            <img src="..." alt="Connective tissue" class="tissue-image">
+            <input type="text" id="match-b" class="match-input" placeholder="Введите номер (1-4)">
+        </div>
+        
+        <div class="image-item">
+            <div class="image-label">C</div>
+            <img src="..." alt="Muscle tissue" class="tissue-image">
+            <input type="text" id="match-c" class="match-input" placeholder="Введите номер (1-4)">
+        </div>
+        
+        <div class="image-item">
+            <div class="image-label">D</div>
+            <img src="..." alt="Nervous tissue" class="tissue-image">
+            <input type="text" id="match-d" class="match-input" placeholder="Введите номер (1-4)">
+        </div>
+    </div>
+    
+    <!-- Потом все варианты ответов -->
+    <div class="mobile-names-container">
+        <div class="name-item">
+            <div class="name-label">1</div>
+            <div class="tissue-name">Мышечная ткань / Muscle tissue</div>
+        </div>
+        
+        <div class="name-item">
+            <div class="name-label">2</div>
+            <div class="tissue-name">Нервная ткань / Nervous tissue</div>
+        </div>
+        
+        <div class="name-item">
+            <div class="name-label">3</div>
+            <div class="tissue-name">Соединительная ткань / Connective tissue</div>
+        </div>
+        
+        <div class="name-item">
+            <div class="name-label">4</div>
+            <div class="tissue-name">Эпителиальная ткань / Epithelial tissue</div>
+        </div>
+    </div>
+</div>
             
             <div class="task">
                 <div class="task-title">
