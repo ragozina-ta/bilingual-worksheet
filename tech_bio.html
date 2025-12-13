@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Цифровой след "Биосферы"</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --green-primary: #2e7d32;
+            --green-light: #4caf50;
+            --blue-accent: #1976d2;
+            --orange-highlight: #f57c00;
+            --gray-bg: #f9f9f9;
+            --text-dark: #333;
+            --text-light: #666;
+            --purple: #7b1fa2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--green-primary), var(--green-light));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background-color: var(--gray-bg);
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-dark);
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--green-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: var(--blue-accent);
+            margin-bottom: 1rem;
+        }
+
+        .tech-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .tool-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tool-card p {
+            color: var(--text-light);
+        }
+
+        .chart-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--orange-highlight);
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .conclusion {
+            background: linear-gradient(to right, #e8f5e9, #fff);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .conclusion h2 {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .conclusion ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .conclusion li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .conclusion li:last-child {
+            border-bottom: none;
+        }
+
+        .conclusion li strong {
+            color: var(--green-primary);
+        }
+
+        .recommendations {
+            background: linear-gradient(to right, #f3e5f5, #fff);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-top: 3rem;
+            border-left: 4px solid var(--purple);
+        }
+
+        .recommendations h2 {
+            color: var(--purple);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .recommend-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .recommend-card h4 {
+            color: var(--purple);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            border-top: 1px solid #eee;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            .hero p {
+                font-size: 1.05rem;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+            .highlight-number {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Цифровой след "Биосферы": как технологии делают внеурочку измеримой</h1>
+            <p>Результаты мониторинга исследовательского клуба для учащихся 7–9 классов (2024/2025 уч. г., N = 120)</p>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <p>Современная внеурочная деятельность — не дополнительная нагрузка, а пространство для научного мышления и личностного роста. С помощью цифровых инструментов мы не просто оцениваем — мы видим прогресс.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <section>
+            <h2>Как мы измеряем прогресс? Три цифровых столпа внеурочки</h2>
+            <div class="tech-tools">
+                <div class="tool-card">
+                    <h4>🛠️ Платформы для проектной работы</h4>
+                    <p><strong>Примеры:</strong> «МЭШ», «Сферум»</p>
+                    <p>→ Организация команд, сбор отчётов, лонгитюдный мониторинг.</p>
+                </div>
+                <div class="tool-card">
+                    <h4>⚡ Инструменты формирующего оценивания</h4>
+                    <p><strong>Примеры:</strong> Plickers, LiveWorksheets, Kahoot!</p>
+                    <p>→ Мгновенная обратная связь по пониманию концепций.</p>
+                </div>
+                <div class="tool-card">
+                    <h4>📊 Системы анализа и визуализации</h4>
+                    <p><strong>Примеры:</strong> Яндекс.Диаграммы, Google Sheets</p>
+                    <p>→ Анализ динамики группы и индивидуальных траекторий.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Блок 1: Рост знаний и исследовательских компетенций</h2>
+            <div class="highlight-number">+24 балла</div>
+            <div class="chart-container">
+                <canvas id="chart1" height="100"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="chart2" height="120"></canvas>
+            </div>
+        </section>
+
+        <section>
+            <h2>Блок 2: Динамика мотивации и вовлеченности</h2>
+            <div class="chart-container">
+                <canvas id="chart3" height="150"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="chart4" height="120"></canvas>
+            </div>
+        </section>
+
+        <section>
+            <h2>Блок 3: Развитие метапредметных навыков</h2>
+            <div class="chart-container">
+                <canvas id="chart5" height="120"></canvas>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; color: var(--text-light);">
+                <strong>81%</strong> участников групповых проектов оценили свой вклад как значительный и конструктивный.
+            </p>
+        </section>
+
+        <section>
+            <h2>Блок 4: Эффективность обратной связи</h2>
+            <div class="chart-container">
+                <canvas id="chart6" height="180"></canvas>
+            </div>
+        </section>
+
+        <div class="conclusion">
+            <h2>Ключевые выводы</h2>
+            <ul>
+                <li><strong>✅ Технологии делают прогресс измеримым.</strong><br>Прирост +24 балла; рост качества исследований с 25% до 78%.</li>
+                <li><strong>💡 Меняется мотивационная сфера.</strong><br>Профессиональное самоопределение выросло с 15% до 41%.</li>
+                <li><strong>🖥️ Формируется цифрово-исследовательская грамотность.</strong><br>85% уверенно работают с цифровыми инструментами.</li>
+                <li><strong>🔁 Обратная связь становится драйвером роста.</strong><br>92% ценят мгновенную обратную связь через онлайн-викторины.</li>
+            </ul>
+        </div>
+
+        <div class="recommendations">
+            <h2>Рекомендации для педагогов и образовательных организаций</h2>
+            <div class="recommendations-grid">
+                <div class="recommend-card">
+                    <h4>Внедряйте цифровые платформы системно</h4>
+                    <p>Используйте единые среды (МЭШ, Сферум) для накопительной оценки и отслеживания личных траекторий учащихся.</p>
+                </div>
+                <div class="recommend-card">
+                    <h4>Делайте акцент на формирующем оценивании</h4>
+                    <p>Интегрируйте быстрые форматы обратной связи (квизы, интерактивные листы) в каждое занятие внеурочной деятельности.</p>
+                </div>
+                <div class="recommend-card">
+                    <h4>Визуализируйте прогресс учащихся</h4>
+                    <p>Показывайте детям их рост через графики и дашборды — это повышает мотивацию и ответственность за обучение.</p>
+                </div>
+                <div class="recommend-card">
+                    <h4>Фокусируйтесь на профессиональном самоопределении</h4>
+                    <p>Проектируйте внеурочку как «окно в профессию»: приглашайте экспертов, организуйте выезды, поддерживайте участие в конкурсах.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Данные получены в рамках пилотного проекта «Исследовательский клуб "Биосфера"». Все диаграммы основаны на реальных результатах 120 учащихся 7–9 классов. Использованы инструменты: МЭШ, Google Docs, Kahoot!, Quizizz, LiveWorksheets.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Настройка подписей (label) для всех графиков в Chart.js
+        Chart.defaults.font.size = 12;
+        Chart.defaults.color = '#333';
+
+        // Блок 1: Средний балл
+        const ctx1 = document.getElementById('chart1').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+             {
+                labels: ['Средний балл по предмету (из 100)'],
+                datasets: [{
+                    label: 'На старте',
+                     [58],
+                    backgroundColor: '#4caf50',
+                    borderColor: '#2e7d32',
+                    borderWidth: 1
+                }, {
+                    label: 'На финише',
+                    data: [82],
+                    backgroundColor: '#1976d2',
+                    borderColor: '#0d47a1',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Баллы'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y} баллов`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Блок 1: Качество работ + Гипотеза
+        const ctx2 = document.getElementById('chart2').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+             {
+                labels: ['Качество протоколов (%)', 'Умение формулировать гипотезу (%)'],
+                datasets: [{
+                    label: 'На старте',
+                    data: [25, 40],
+                    backgroundColor: '#a5d6a7'
+                }, {
+                    label: 'На финише',
+                     [78, 89],
+                    backgroundColor: '#4fc3f7'
+                }]
+            },
+            options: {
+                responsive: true,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Процент учащихся'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.x}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Блок 2: Активность
+        const ctx3 = document.getElementById('chart3').getContext('2d');
+        new Chart(ctx3, {
+            type: 'doughnut',
+            data: {
+                labels: ['Высокая активность (≥90%)', 'Средняя (60–90%)', 'Низкая (<60%)'],
+                datasets: [{
+                     [45, 38, 17],
+                    backgroundColor: ['#4caf50', '#ff9800', '#f44336'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.label}: ${context.parsed}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Блок 2: Мотивация
+        const ctx4 = document.getElementById('chart4').getContext('2d');
+        new Chart(ctx4, {
+            type: 'bar',
+             {
+                labels: ['Интерес к биологии как науке (%)', 'Биология как будущая профессия (%)'],
+                datasets: [{
+                    label: 'На старте',
+                     [35, 15],
+                    backgroundColor: '#81c784'
+                }, {
+                    label: 'На финише',
+                     [67, 41],
+                    backgroundColor: '#29b6f6'
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Процент учащихся'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.x}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Блок 3: Метапредметные навыки
+        const ctx5 = document.getElementById('chart5').getContext('2d');
+        new Chart(ctx5, {
+            type: 'bar',
+             {
+                labels: ['Цифровая грамотность (%)', 'Выступления на школьных конференциях (%)', 'Выступления на внешних конкурсах (%)'],
+                datasets: [{
+                    label: 'На старте',
+                     [30, 22, 5],
+                    backgroundColor: '#aed581'
+                }, {
+                    label: 'На финише',
+                     [85, 63, 28],
+                    backgroundColor: '#4dd0e1'
+                }]
+            },
+            options: {
+                responsive: true,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Процент учащихся'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.x}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Блок 4: Обратная связь
+        const ctx6 = document.getElementById('chart6').getContext('2d');
+        new Chart(ctx6, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Онлайн-викторины (Kahoot!/Quizizz)',
+                    'Комментарии в цифровом портфолио',
+                    'Видеозаписи экспериментов',
+                    'Графики личного прогресса'
+                ],
+                datasets: [{
+                    label: '% учащихся с положительными отзывами',
+                     [92, 88, 76, 68],
+                    backgroundColor: [
+                        '#ff7043',
+                        '#4db6ac',
+                        '#7986cb',
+                        '#ba68c8'
+                    ]
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        title: {
+                            display: true,
+                            text: 'Процент положительных отзывов'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.x}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
+
