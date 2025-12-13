@@ -3,8 +3,45 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Цифровой след "Биосферы"</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Использование современных технологий мониторинга и диагностики образовательных результатов обучающихся в процессе внеурочной деятельности по биологии</title>
+    
+    <!-- Мета-теги для SEO -->
+    <meta name="description" content="Исследование эффективности современных технологий мониторинга и диагностики образовательных результатов обучающихся в процессе внеурочной деятельности по биологии. Анализ данных 120 учащихся 7–9 классов.">
+    <meta name="keywords" content="мониторинг, диагностика, образовательные результаты, внеурочная деятельность, биология, цифровые технологии, исследовательский клуб, биосфера">
+    <meta name="author" content="Исследовательский клуб 'Биосфера'">
+    
+    <!-- Open Graph для соцсетей -->
+    <meta property="og:title" content="Использование современных технологий мониторинга и диагностики образовательных результатов обучающихся">
+    <meta property="og:description" content="Эффективность цифровых инструментов в мониторинге образовательных результатов во внеурочной деятельности по биологии. Результаты исследования за 2024/2025 учебный год.">
+    <meta property="og:type" content="website">
+    
+    <!-- Структурированные данные для SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ResearchProject",
+        "name": "Исследовательский клуб 'Биосфера'",
+        "description": "Исследование эффективности современных технологий мониторинга и диагностики образовательных результатов обучающихся в процессе внеурочной деятельности по биологии",
+        "keywords": "образование, биология, внеурочная деятельность, мониторинг, диагностика, цифровые технологии",
+        "funder": {
+            "@type": "EducationalOrganization",
+            "name": "Исследовательский клуб 'Биосфера'"
+        },
+        "startDate": "2024-09-01",
+        "endDate": "2025-05-31",
+        "studySubject": {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Биологическое образование"
+        }
+    }
+    </script>
+    
+    <!-- Предзагрузка критических ресурсов -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/chart.js" as="script">
+    
+    <!-- Chart.js с указанием версии для стабильности -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    
     <style>
         :root {
             --green-primary: #2e7d32;
@@ -15,6 +52,9 @@
             --text-dark: #333;
             --text-light: #666;
             --purple: #7b1fa2;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -23,11 +63,17 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #ffffff;
+            background-color: var(--white);
             color: var(--text-dark);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
@@ -36,30 +82,45 @@
             padding: 0 20px;
         }
 
+        /* Стили для улучшения доступности */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         header {
             background: linear-gradient(135deg, var(--green-primary), var(--green-light));
-            color: white;
-            padding: 2rem 0;
+            color: var(--white);
+            padding: 2.5rem 0;
             text-align: center;
         }
 
         header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.9rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            font-weight: 600;
         }
 
         header p {
             font-size: 1.1rem;
             opacity: 0.95;
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .hero {
             background-color: var(--gray-bg);
-            padding: 2rem 0;
+            padding: 2.5rem 0;
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
 
         .hero p {
@@ -67,10 +128,12 @@
             max-width: 800px;
             margin: 0 auto;
             color: var(--text-dark);
+            line-height: 1.8;
         }
 
         section {
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
+            scroll-margin-top: 2rem;
         }
 
         h2 {
@@ -78,31 +141,36 @@
             color: var(--green-primary);
             margin-bottom: 1.5rem;
             text-align: center;
+            line-height: 1.4;
         }
 
         h3 {
             font-size: 1.4rem;
             color: var(--blue-accent);
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            text-align: center;
         }
 
         .tech-tools {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
+            gap: 1.75rem;
+            margin-top: 1.75rem;
         }
 
         .tool-card {
-            background: white;
+            background: var(--white);
             border-radius: 12px;
-            padding: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            transition: transform 0.2s;
+            padding: 1.75rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
-        .tool-card:hover {
-            transform: translateY(-4px);
+        .tool-card:hover,
+        .tool-card:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
         .tool-card h4 {
@@ -110,39 +178,96 @@
             margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .tool-card p {
-            color: var(--text-light);
+            color: #555;
+            margin-bottom: 0.5rem;
         }
 
+        .tool-card strong {
+            color: var(--green-primary);
+        }
+
+        /* Компактные контейнеры для диаграмм с фиксированными пропорциями */
         .chart-container {
-            background: white;
+            background: var(--white);
             padding: 1.5rem;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: var(--shadow);
             margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 600px; /* Ограничение максимальной ширины */
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px; /* Фиксированная высота */
+        }
+
+        /* Контейнер для круговой диаграммы (меньше) */
+        .doughnut-container {
+            height: 280px; /* Меньше для круговой */
+            max-width: 450px; /* Уже для круговой */
+        }
+
+        .chart-container h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* Исправление для Canvas - фиксированные пропорции */
+        .chart-container .chart-wrapper {
+            position: relative;
+            height: 220px; /* Высота для графика */
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .doughnut-container .chart-wrapper {
+            height: 180px; /* Меньше для круговой */
+        }
+
+        .chart-container canvas {
+            display: block !important;
+            max-height: 100% !important;
+            max-width: 100% !important;
+            width: auto !important;
+            height: auto !important;
+            margin: 0 auto;
         }
 
         .highlight-number {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: bold;
             color: var(--orange-highlight);
             text-align: center;
             margin: 1.5rem 0;
+            padding: 0.8rem;
+            background: linear-gradient(to right, rgba(255, 152, 0, 0.1), rgba(255, 193, 7, 0.1));
+            border-radius: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
         .conclusion {
-            background: linear-gradient(to right, #e8f5e9, #fff);
-            padding: 2rem;
+            background: linear-gradient(to right, #e8f5e9, var(--white));
+            padding: 2.5rem;
             border-radius: 12px;
-            margin-top: 2rem;
+            margin-top: 3rem;
+            border-left: 4px solid var(--green-primary);
         }
 
         .conclusion h2 {
             text-align: left;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.75rem;
         }
 
         .conclusion ul {
@@ -151,11 +276,18 @@
         }
 
         .conclusion li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
             display: flex;
             align-items: flex-start;
-            gap: 0.75rem;
+            gap: 1rem;
+            transition: var(--transition);
+        }
+
+        .conclusion li:hover {
+            background-color: rgba(255,255,255,0.5);
+            padding-left: 0.5rem;
+            border-radius: 5px;
         }
 
         .conclusion li:last-child {
@@ -164,10 +296,12 @@
 
         .conclusion li strong {
             color: var(--green-primary);
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
         .recommendations {
-            background: linear-gradient(to right, #f3e5f5, #fff);
+            background: linear-gradient(to right, #f3e5f5, var(--white));
             padding: 2.5rem;
             border-radius: 12px;
             margin-top: 3rem;
@@ -183,190 +317,742 @@
         .recommendations-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            gap: 1.75rem;
         }
 
         .recommend-card {
-            background: white;
-            padding: 1.5rem;
+            background: var(--white);
+            padding: 1.75rem;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .recommend-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
         }
 
         .recommend-card h4 {
             color: var(--purple);
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        /* Контролы для интерактивности */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--blue-accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .control-btn:hover,
+        .control-btn:focus {
+            background-color: #1565c0;
+            transform: translateY(-2px);
+        }
+
+        .control-btn.secondary {
+            background-color: var(--green-primary);
+        }
+
+        .control-btn.secondary:hover,
+        .control-btn.secondary:focus {
+            background-color: #1b5e20;
+        }
+
+        /* Навигация по странице */
+        .page-nav {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--green-light);
+            opacity: 0.5;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .nav-dot:hover,
+        .nav-dot.active {
+            opacity: 1;
+            transform: scale(1.3);
+            background-color: var(--green-primary);
+        }
+
+        /* Анимация появления */
+        .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         footer {
             text-align: center;
-            padding: 2rem 0;
+            padding: 2.5rem 0;
             color: var(--text-light);
             font-size: 0.95rem;
-            border-top: 1px solid #eee;
-            margin-top: 2rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            margin-top: 3rem;
+            background-color: var(--gray-bg);
+        }
+
+        footer a {
+            color: var(--blue-accent);
+            text-decoration: none;
+        }
+
+        footer a:hover,
+        footer a:focus {
+            text-decoration: underline;
+        }
+
+        /* Стили для доступности фокуса */
+        :focus-visible {
+            outline: 2px solid var(--blue-accent);
+            outline-offset: 2px;
+        }
+
+        /* Новый аналитический блок */
+        .analytical-block {
+            background: linear-gradient(to right, #e3f2fd, #fff);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin-top: 3rem;
+            border-left: 4px solid var(--blue-accent);
+        }
+
+        .analytical-block h2 {
+            color: var(--blue-accent);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .question-section {
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: var(--transition);
+        }
+
+        .question-section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .question-section h3 {
+            color: var(--blue-accent);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #bbdefb;
+            padding-bottom: 0.5rem;
+            text-align: left;
+        }
+
+        .question-section p {
+            color: var(--text-dark);
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .question-section ul, .question-section ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .question-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        /* Сетка для размещения двух диаграмм в ряд */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 1100px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Стили для печати A4 */
+        @media print {
+            @page {
+                size: A4;
+                margin: 1.5cm;
+            }
+            
+            body {
+                font-size: 11pt;
+                line-height: 1.4;
+                background: white !important;
+                color: black !important;
+            }
+            
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            header {
+                background: white !important;
+                color: black !important;
+                box-shadow: none !important;
+                padding: 1rem 0;
+                border-bottom: 2px solid #000;
+            }
+            
+            .controls,
+            .page-nav,
+            .control-btn {
+                display: none !important;
+            }
+            
+            .hero {
+                background: white !important;
+                color: black !important;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                margin: 1rem 0;
+                padding: 1rem;
+            }
+            
+            .chart-container {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                margin-bottom: 1cm;
+                padding: 1rem;
+                height: auto !important;
+                max-width: 100% !important;
+            }
+            
+            .chart-container canvas {
+                max-height: 150px !important;
+            }
+            
+            .tool-card,
+            .recommend-card,
+            .question-section {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                margin-bottom: 0.8cm;
+            }
+            
+            .highlight-number {
+                animation: none !important;
+                background: white !important;
+                color: black !important;
+                border: 1px solid #ddd;
+                font-size: 2rem;
+                margin: 1rem 0;
+            }
+            
+            .conclusion,
+            .recommendations,
+            .analytical-block {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                background: white !important;
+                margin-bottom: 1cm;
+            }
+            
+            h2, h3 {
+                color: black !important;
+            }
+            
+            a {
+                color: black !important;
+                text-decoration: underline;
+            }
+            
+            footer {
+                border-top: 1px solid #000;
+                margin-top: 2cm;
+                padding: 1rem 0;
+                font-size: 9pt;
+            }
         }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 1.8rem;
+            header {
+                padding: 2rem 0;
             }
+            
+            header h1 {
+                font-size: 1.6rem;
+            }
+            
             header p {
                 font-size: 1rem;
+                padding: 0 1rem;
             }
+            
             .hero p {
                 font-size: 1.05rem;
+                padding: 0 1rem;
             }
+            
             h2 {
                 font-size: 1.5rem;
             }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
             .highlight-number {
-                font-size: 2.2rem;
+                font-size: 2rem;
+            }
+            
+            .page-nav {
+                display: none;
+            }
+            
+            .controls {
+                justify-content: center;
+            }
+            
+            .conclusion,
+            .recommendations,
+            .analytical-block {
+                padding: 1.5rem;
+            }
+            
+            .chart-container {
+                padding: 1rem;
+                height: 280px;
+                max-width: 100%;
+            }
+            
+            .doughnut-container {
+                height: 240px;
+                max-width: 100%;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tech-tools,
+            .recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .control-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            header h1 {
+                font-size: 1.4rem;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .doughnut-container {
+                height: 220px;
+            }
+            
+            .chart-container h3 {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Навигация по странице (точки) -->
+    <div class="page-nav" aria-label="Навигация по разделам">
+        <button class="nav-dot" data-section="tech-tools" aria-label="Перейти к разделу: Технологические инструменты"></button>
+        <button class="nav-dot" data-section="block1" aria-label="Перейти к разделу: Рост знаний"></button>
+        <button class="nav-dot" data-section="block2" aria-label="Перейти к разделу: Динамика мотивации"></button>
+        <button class="nav-dot" data-section="block3" aria-label="Перейти к разделу: Метапредметные навыки"></button>
+        <button class="nav-dot" data-section="block4" aria-label="Перейти к разделу: Обратная связь"></button>
+        <button class="nav-dot" data-section="conclusion" aria-label="Перейти к разделу: Выводы"></button>
+        <button class="nav-dot" data-section="recommendations" aria-label="Перейти к разделу: Рекомендации"></button>
+        <button class="nav-dot" data-section="analytics" aria-label="Перейти к разделу: Аналитика"></button>
+    </div>
+
     <header>
         <div class="container">
-            <h1>Цифровой след "Биосферы": как технологии делают внеурочку измеримой</h1>
-            <p>Результаты мониторинга исследовательского клуба для учащихся 7–9 классов (2024/2025 уч. г., N = 120)</p>
+            <h1>Использование современных технологий мониторинга и диагностики образовательных результатов обучающихся в процессе внеурочной деятельности по биологии</h1>
+            <p>Результаты исследования эффективности цифровых инструментов в исследовательском клубе для учащихся 7–9 классов (2024/2025 уч. г., N = 120)</p>
         </div>
     </header>
 
     <div class="hero">
         <div class="container">
-            <p>Современная внеурочная деятельность — не дополнительная нагрузка, а пространство для научного мышления и личностного роста. С помощью цифровых инструментов мы не просто оцениваем — мы видим прогресс.</p>
+            <p>Современная внеурочная деятельность — не дополнительная нагрузка, а пространство для научного мышления и личностного роста. С помощью цифровых инструментов мониторинга и диагностики мы не просто оцениваем — мы видим и анализируем прогресс каждого обучающегося.</p>
         </div>
     </div>
 
     <div class="container">
-        <section>
-            <h2>Как мы измеряем прогресс? Три цифровых столпа внеурочки</h2>
+        <!-- Элементы управления -->
+        <div class="controls">
+            <button class="control-btn" id="exportBtn" aria-label="Экспортировать данные и распечатать отчет A4">
+                📊 Экспорт и печать A4
+            </button>
+            <button class="control-btn secondary" id="toggleAnimations" aria-label="Переключить анимации">
+                ⚡ Анимации
+            </button>
+            <button class="control-btn" id="scrollToAnalytics" aria-label="Перейти к аналитическому блоку">
+                📈 К аналитике
+            </button>
+        </div>
+
+        <section id="tech-tools" tabindex="0">
+            <h2>Технологии мониторинга и диагностики: три ключевых направления</h2>
             <div class="tech-tools">
                 <div class="tool-card">
-                    <h4>🛠️ Платформы для проектной работы</h4>
+                    <h4><span aria-hidden="true">🛠️</span> Платформы для проектной работы и сбора данных</h4>
                     <p><strong>Примеры:</strong> «МЭШ», «Сферум»</p>
-                    <p>→ Организация команд, сбор отчётов, лонгитюдный мониторинг.</p>
+                    <p>→ Организация команд, сбор отчётов, лонгитюдный мониторинг образовательных результатов во внеурочной деятельности.</p>
                 </div>
                 <div class="tool-card">
-                    <h4>⚡ Инструменты формирующего оценивания</h4>
+                    <h4><span aria-hidden="true">⚡</span> Инструменты формирующего оценивания и оперативной диагностики</h4>
                     <p><strong>Примеры:</strong> Plickers, LiveWorksheets, Kahoot!</p>
-                    <p>→ Мгновенная обратная связь по пониманию концепций.</p>
+                    <p>→ Мгновенная обратная связь по пониманию концепций, оперативная диагностика образовательных дефицитов во внеурочной деятельности.</p>
                 </div>
                 <div class="tool-card">
-                    <h4>📊 Системы анализа и визуализации</h4>
+                    <h4><span aria-hidden="true">📊</span> Системы анализа и визуализации образовательных результатов</h4>
                     <p><strong>Примеры:</strong> Яндекс.Диаграммы, Google Sheets</p>
-                    <p>→ Анализ динамики группы и индивидуальных траекторий.</p>
+                    <p>→ Анализ динамики группы и индивидуальных образовательных траекторий во внеурочной деятельности.</p>
                 </div>
             </div>
         </section>
 
-        <section>
-            <h2>Блок 1: Рост знаний и исследовательских компетенций</h2>
-            <div class="highlight-number">+24 балла</div>
-            <div class="chart-container">
-                <canvas id="chart1" height="100"></canvas>
-            </div>
-            <div class="chart-container">
-                <canvas id="chart2" height="120"></canvas>
+        <section id="block1" tabindex="0">
+            <h2>Блок 1: Динамика предметных знаний и исследовательских компетенций</h2>
+            <div class="highlight-number" id="growthNumber">+24 балла</div>
+            
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Средний балл по предмету "Биология"</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chart1" role="img" aria-label="Диаграмма: Средний балл по предмету на старте 58 баллов, на финише 82 балла. Прирост 24 балла."></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Качество исследовательских работ и гипотез</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chart2" role="img" aria-label="Диаграмма: Качество протоколов выросло с 25% до 78%. Умение формулировать гипотезу выросло с 40% до 89%."></canvas>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>Блок 2: Динамика мотивации и вовлеченности</h2>
-            <div class="chart-container">
-                <canvas id="chart3" height="150"></canvas>
-            </div>
-            <div class="chart-container">
-                <canvas id="chart4" height="120"></canvas>
+        <section id="block2" tabindex="0">
+            <h2>Блок 2: Динамика мотивации и вовлеченности во внеурочную деятельность</h2>
+            
+            <div class="charts-grid">
+                <div class="chart-container doughnut-container">
+                    <h3>Уровень активности обучающихся</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chart3" role="img" aria-label="Круговая диаграмма: Высокая активность у 45% учащихся, средняя у 38%, низкая у 17%."></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3>Изменение мотивации обучающихся</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="chart4" role="img" aria-label="Диаграмма: Интерес к биологии вырос с 35% до 67%. Рассмотрение биологии как будущей профессии выросло с 15% до 41%."></canvas>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section>
-            <h2>Блок 3: Развитие метапредметных навыков</h2>
+        <section id="block3" tabindex="0">
+            <h2>Блок 3: Развитие метапредметных навыков в процессе внеурочной деятельности</h2>
             <div class="chart-container">
-                <canvas id="chart5" height="120"></canvas>
+                <h3>Рост ключевых метапредметных компетенций</h3>
+                <div class="chart-wrapper">
+                    <canvas id="chart5" role="img" aria-label="Диаграмма: Цифровая грамотность выросла с 30% до 85%. Выступления на школьных конференциях с 22% до 63%. Участие во внешних конкурсах с 5% до 28%."></canvas>
+                </div>
             </div>
-            <p style="text-align: center; margin-top: 1rem; color: var(--text-light);">
-                <strong>81%</strong> участников групповых проектов оценили свой вклад как значительный и конструктивный.
+            <p style="text-align: center; margin-top: 1rem; color: #555; font-size: 1.1rem;">
+                <strong>81%</strong> участников групповых проектов во внеурочной деятельности оценили свой вклад как значительный и конструктивный.
             </p>
         </section>
 
-        <section>
-            <h2>Блок 4: Эффективность обратной связи</h2>
+        <section id="block4" tabindex="0">
+            <h2>Блок 4: Эффективность обратной связи в процессе мониторинга</h2>
             <div class="chart-container">
-                <canvas id="chart6" height="180"></canvas>
+                <h3>Оценка различных форматов обратной связи обучающимися</h3>
+                <div class="chart-wrapper">
+                    <canvas id="chart6" role="img" aria-label="Диаграмма: Онлайн-викторины получили 92% положительных отзывов, комментарии в портфолио 88%, видеозаписи экспериментов 76%, графики личного прогресса 68%."></canvas>
+                </div>
             </div>
         </section>
 
-        <div class="conclusion">
-            <h2>Ключевые выводы</h2>
+        <div class="conclusion" id="conclusion" tabindex="0">
+            <h2>Ключевые выводы исследования</h2>
             <ul>
-                <li><strong>✅ Технологии делают прогресс измеримым.</strong><br>Прирост +24 балла; рост качества исследований с 25% до 78%.</li>
-                <li><strong>💡 Меняется мотивационная сфера.</strong><br>Профессиональное самоопределение выросло с 15% до 41%.</li>
-                <li><strong>🖥️ Формируется цифрово-исследовательская грамотность.</strong><br>85% уверенно работают с цифровыми инструментами.</li>
-                <li><strong>🔁 Обратная связь становится драйвером роста.</strong><br>92% ценят мгновенную обратную связь через онлайн-викторины.</li>
+                <li>
+                    <strong>✅ Технологии делают образовательный прогресс измеримым.</strong>
+                    Прирост +24 балла; рост качества исследовательских работ с 25% до 78% в процессе внеурочной деятельности.
+                </li>
+                <li>
+                    <strong>💡 Меняется мотивационная сфера обучающихся.</strong>
+                    Профессиональное самоопределение в области биологии выросло с 15% до 41% благодаря внеурочной деятельности.
+                </li>
+                <li>
+                    <strong>🖥️ Формируется цифрово-исследовательская грамотность.</strong>
+                    85% обучающихся уверенно работают с цифровыми инструментами мониторинга и диагностики во внеурочной деятельности.
+                </li>
+                <li>
+                    <strong>🔁 Обратная связь становится драйвером роста в образовательном процессе.</strong>
+                    92% ценят мгновенную обратную связь через онлайн-викторины во внеурочной деятельности.
+                </li>
             </ul>
         </div>
 
-        <div class="recommendations">
+        <div class="recommendations" id="recommendations" tabindex="0">
             <h2>Рекомендации для педагогов и образовательных организаций</h2>
             <div class="recommendations-grid">
                 <div class="recommend-card">
-                    <h4>Внедряйте цифровые платформы системно</h4>
-                    <p>Используйте единые среды (МЭШ, Сферум) для накопительной оценки и отслеживания личных траекторий учащихся.</p>
+                    <h4>Внедряйте цифровые платформы мониторинга системно</h4>
+                    <p>Используйте единые среды (МЭШ, Сферум) для накопительной оценки и отслеживания личных образовательных траекторий обучающихся во внеурочной деятельности.</p>
                 </div>
                 <div class="recommend-card">
-                    <h4>Делайте акцент на формирующем оценивании</h4>
-                    <p>Интегрируйте быстрые форматы обратной связи (квизы, интерактивные листы) в каждое занятие внеурочной деятельности.</p>
+                    <h4>Делайте акцент на формирующем оценивании в процессе внеурочной деятельности</h4>
+                    <p>Интегрируйте быстрые форматы обратной связи (квизы, интерактивные листы) в каждое занятие внеурочной деятельности для оперативной диагностики.</p>
                 </div>
                 <div class="recommend-card">
-                    <h4>Визуализируйте прогресс учащихся</h4>
-                    <p>Показывайте детям их рост через графики и дашборды — это повышает мотивацию и ответственность за обучение.</p>
+                    <h4>Визуализируйте образовательный прогресс обучающихся</h4>
+                    <p>Показывайте детям их рост через графики и дашборды — это повышает мотивацию и ответственность за обучение во внеурочной деятельности.</p>
                 </div>
                 <div class="recommend-card">
-                    <h4>Фокусируйтесь на профессиональном самоопределении</h4>
-                    <p>Проектируйте внеурочку как «окно в профессию»: приглашайте экспертов, организуйте выезды, поддерживайте участие в конкурсах.</p>
+                    <h4>Фокусируйтесь на профессиональном самоопределении в рамках внеурочной деятельности</h4>
+                    <p>Проектируйте внеурочную деятельность как «окно в профессию»: приглашайте экспертов, организуйте выезды, поддерживайте участие в конкурсах.</p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Новый аналитический блок -->
+        <div class="analytical-block" id="analytics" tabindex="0">
+            <h2>Аналитический блок: ответы на ключевые вопросы</h2>
+            
+            <div class="question-section">
+                <h3>1. Обоснование выбора мониторингового исследования качества образовательного процесса</h3>
+                <p>Мониторинговое исследование было выбрано как наиболее эффективный инструмент для объективной оценки качества образовательного процесса в рамках внеурочной деятельности по следующим причинам:</p>
+                <ul>
+                    <li><strong>Системность оценки:</strong> Мониторинг позволяет осуществлять непрерывное отслеживание образовательных результатов, что обеспечивает целостное представление о динамике развития учащихся.</li>
+                    <li><strong>Объективность данных:</strong> Использование цифровых инструментов минимизирует субъективность оценки и обеспечивает сбор достоверных количественных данных.</li>
+                    <li><strong>Диагностическая функция:</strong> Мониторинг выявляет не только результаты, но и процессы их достижения, что позволяет своевременно корректировать образовательную траекторию.</li>
+                    <li><strong>Ориентация на развитие:</strong> Исследование носит формирующий характер, предоставляя обратную связь для совершенствования как деятельности педагога, так и учебной деятельности учащихся.</li>
+                    <li><strong>Комплексный подход:</strong> Охватывает все аспекты образовательного процесса: предметные знания, метапредметные навыки, мотивацию и личностное развитие.</li>
+                </ul>
+            </div>
+            
+            <div class="question-section">
+                <h3>2. Логика предложенной инфографики для комплексного подхода к оцениванию образовательных достижений учащихся</h3>
+                <p>Инфографика построена по принципу многоуровневого анализа, обеспечивающего комплексный подход к оцениванию образовательных достижений:</p>
+                <ol>
+                    <li><strong>Блочная структура:</strong> Информация организована в тематические блоки (знания, мотивация, навыки, обратная связь), что позволяет анализировать каждый аспект отдельно и в совокупности.</li>
+                    <li><strong>Динамический подход:</strong> Везде, где это возможно, представлены данные "до" и "после", что позволяет оценить не только текущее состояние, но и прогресс.</li>
+                    <li><strong>Многообразие форм визуализации:</strong> Использование различных типов диаграмм (столбчатые, круговые, пончиковые) соответствует характеру представляемых данных и облегчает их восприятие.</li>
+                    <li><strong>Иерархия информации:</strong> От общих показателей (средний балл) к более конкретным (качество протоколов, умение формулировать гипотезы) с постепенным углублением в детали.</li>
+                    <li><strong>Контекстуализация данных:</strong> Каждый график сопровождается пояснениями и выводами, что превращает сырые данные в осмысленную информацию для принятия решений.</li>
+                    <li><strong>Интеграция количественных и качественных показателей:</strong> Сочетание статистических данных (проценты, баллы) с качественными оценками (отзывы, самооценка участия).</li>
+                </ol>
+                <p>Такой подход позволяет не только констатировать факты, но и выявлять причинно-следственные связи, что является основой для управленческих решений.</p>
+            </div>
+            
+            <div class="question-section">
+                <h3>3. Цели и задачи по управлению познавательной деятельностью учащихся во внеурочной деятельности (на основе инфографики)</h3>
+                
+                <p><strong>Цели управления познавательной деятельностью:</strong></p>
+                <ul>
+                    <li>Повысить средний уровень предметных знаний по биологии до 85 баллов к концу учебного года</li>
+                    <li>Довести долю учащихся, качественно выполняющих исследовательские работы, до 85%</li>
+                    <li>Увеличить процент учащихся, рассматривающих биологию как будущую профессию, до 50%</li>
+                    <li>Обеспечить 90% уровень цифровой грамотности среди участников внеурочной деятельности</li>
+                    <li>Создать условия для участия не менее 35% учащихся во внешних конкурсах и конференциях</li>
+                </ul>
+                
+                <p><strong>Задачи по управлению познавательной деятельностью:</strong></p>
+                <ol>
+                    <li><strong>Дифференциация и индивидуализация:</strong>
+                        <ul>
+                            <li>Разработать персонализированные образовательные маршруты на основе данных мониторинга</li>
+                            <li>Создать банк дифференцированных заданий с учетом выявленных образовательных дефицитов</li>
+                            <li>Внедрить систему тьюторского сопровождения для учащихся с низкой активностью</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>Мотивационное обеспечение:</strong>
+                        <ul>
+                            <li>Реализовать проект "Биология как профессия" с приглашением специалистов-биологов</li>
+                            <li>Организовать систему накопительных баллов с возможностью обмена на образовательные бонусы</li>
+                            <li>Создать цифровое портфолио достижений каждого учащегося</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>Развитие исследовательских компетенций:</strong>
+                        <ul>
+                            <li>Внедрить модуль "Основы исследовательской деятельности" с пошаговым руководством</li>
+                            <li>Организовать школу юного исследователя для отработки навыков формулирования гипотез</li>
+                            <li>Провести серию мастер-классов по оформлению исследовательских работ</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>Совершенствование системы обратной связи:</strong>
+                        <ul>
+                            <li>Разработать ритуалы рефлексии в конце каждого занятия</li>
+                            <li>Внедрить систему "быстрой обратной связи" через цифровые платформы</li>
+                            <li>Организовать ежемесячные индивидуальные консультации по анализу образовательного прогресса</li>
+                        </ul>
+                    </li>
+                    
+                    <li><strong>Развитие учебного сотрудничества:</strong>
+                        <ul>
+                            <li>Создать систему наставничества, где успешные учащиеся помогают отстающим</li>
+                            <li>Организовать межгрупповые проекты с элементами здоровой конкуренции</li>
+                            <li>Разработать критерии оценки вклада каждого участника в групповую работу</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <p>Реализация этих целей и задач позволит системно управлять познавательной деятельностью учащихся, превращая внеурочную деятельность в эффективный инструмент личностного и профессионального развития.</p>
             </div>
         </div>
     </div>
 
     <footer>
         <div class="container">
-            <p>Данные получены в рамках пилотного проекта «Исследовательский клуб "Биосфера"». Все диаграммы основаны на реальных результатах 120 учащихся 7–9 классов. Использованы инструменты: МЭШ, Google Docs, Kahoot!, Quizizz, LiveWorksheets.</p>
+            <p>Данные получены в рамках исследовательского проекта «Исследовательский клуб "Биосфера"». Все диаграммы основаны на реальных результатах 120 учащихся 7–9 классов, полученных в процессе внеурочной деятельности по биологии. Использованы инструменты мониторинга и диагностики: МЭШ, Google Docs, Kahoot!, Quizizz, LiveWorksheets.</p>
+            <p style="margin-top: 1rem; font-weight: bold;">Контакты для связи: <a href="mailto:ragozina.ta@gmail.com">ragozina.ta@gmail.com</a></p>
         </div>
     </footer>
 
     <script>
         // Настройка подписей (label) для всех графиков в Chart.js
-        Chart.defaults.font.size = 12;
+        Chart.defaults.font.size = 11;
         Chart.defaults.color = '#333';
+        Chart.defaults.plugins.tooltip.padding = 8;
+        Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        Chart.defaults.plugins.legend.labels.boxWidth = 12;
+        Chart.defaults.plugins.legend.labels.padding = 10;
+
+        // Функция для создания пропорциональных диаграмм
+        function createProportionalChart(canvasId, config) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            return new Chart(ctx, {
+                ...config,
+                options: {
+                    ...config.options,
+                    responsive: true,
+                    maintainAspectRatio: true, // Важно: сохраняем пропорции!
+                    plugins: {
+                        ...config.options.plugins,
+                        legend: {
+                            ...config.options.plugins?.legend,
+                            labels: {
+                                ...config.options.plugins?.legend?.labels,
+                                font: {
+                                    size: 10
+                                }
+                            }
+                        }
+                    },
+                    scales: config.options.scales ? {
+                        ...config.options.scales,
+                        ...Object.keys(config.options.scales).reduce((acc, key) => {
+                            acc[key] = {
+                                ...config.options.scales[key],
+                                ticks: {
+                                    ...config.options.scales[key].ticks,
+                                    font: {
+                                        size: 10
+                                    }
+                                },
+                                title: config.options.scales[key].title ? {
+                                    ...config.options.scales[key].title,
+                                    font: {
+                                        size: 11
+                                    }
+                                } : undefined
+                            };
+                            return acc;
+                        }, {})
+                    } : {}
+                }
+            });
+        }
 
         // Блок 1: Средний балл
-        const ctx1 = document.getElementById('chart1').getContext('2d');
-        new Chart(ctx1, {
+        const chart1 = createProportionalChart('chart1', {
             type: 'bar',
             data: {
-                labels: ['Средний балл по предмету (из 100)'],
+                labels: ['Начало', 'Конец'],
                 datasets: [{
-                    label: 'На старте',
-                    data: [58],
-                    backgroundColor: '#4caf50',
-                    borderColor: '#2e7d32',
-                    borderWidth: 1
-                }, {
-                    label: 'На финише',
-                    data: [82],
-                    backgroundColor: '#1976d2',
-                    borderColor: '#0d47a1',
+                    label: 'Средний балл по биологии',
+                    data: [58, 82],
+                    backgroundColor: ['#4caf50', '#1976d2'],
+                    borderColor: ['#2e7d32', '#0d47a1'],
                     borderWidth: 1
                 }]
             },
             options: {
-                responsive: true,
                 scales: {
                     y: {
                         beginAtZero: true,
@@ -374,11 +1060,13 @@
                         title: {
                             display: true,
                             text: 'Баллы'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
                         }
                     }
                 },
                 plugins: {
-                    legend: { position: 'top' },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
@@ -391,23 +1079,21 @@
         });
 
         // Блок 1: Качество работ + Гипотеза
-        const ctx2 = document.getElementById('chart2').getContext('2d');
-        new Chart(ctx2, {
+        const chart2 = createProportionalChart('chart2', {
             type: 'bar',
             data: {
-                labels: ['Качество протоколов (%)', 'Умение формулировать гипотезу (%)'],
+                labels: ['Качество протоколов', 'Формулирование гипотез'],
                 datasets: [{
-                    label: 'На старте',
+                    label: 'Начало внеурочной деятельности',
                     data: [25, 40],
                     backgroundColor: '#a5d6a7'
                 }, {
-                    label: 'На финише',
+                    label: 'Конец внеурочной деятельности',
                     data: [78, 89],
                     backgroundColor: '#4fc3f7'
                 }]
             },
             options: {
-                responsive: true,
                 indexAxis: 'y',
                 scales: {
                     x: {
@@ -415,12 +1101,14 @@
                         max: 100,
                         title: {
                             display: true,
-                            text: 'Процент учащихся'
+                            text: 'Процент обучающихся'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
                         }
                     }
                 },
                 plugins: {
-                    legend: { position: 'top' },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
@@ -432,26 +1120,25 @@
             }
         });
 
-        // Блок 2: Активность
-        const ctx3 = document.getElementById('chart3').getContext('2d');
-        new Chart(ctx3, {
+        // Блок 2: Активность (уменьшенная круговая)
+        const chart3 = createProportionalChart('chart3', {
             type: 'doughnut',
             data: {
-                labels: ['Высокая активность (≥90%)', 'Средняя (60–90%)', 'Низкая (<60%)'],
+                labels: ['Высокая активность', 'Средняя активность', 'Низкая активность'],
                 datasets: [{
                     data: [45, 38, 17],
                     backgroundColor: ['#4caf50', '#ff9800', '#f44336'],
-                    borderWidth: 1
+                    borderWidth: 1,
+                    borderColor: '#fff'
                 }]
             },
             options: {
-                responsive: true,
+                cutout: '60%',
                 plugins: {
-                    legend: { position: 'bottom' },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `${context.label}: ${context.parsed}%`;
+                                return `${context.label}: ${context.parsed}% обучающихся`;
                             }
                         }
                     }
@@ -460,40 +1147,40 @@
         });
 
         // Блок 2: Мотивация
-        const ctx4 = document.getElementById('chart4').getContext('2d');
-        new Chart(ctx4, {
+        const chart4 = createProportionalChart('chart4', {
             type: 'bar',
             data: {
-                labels: ['Интерес к биологии как науке (%)', 'Биология как будущая профессия (%)'],
+                labels: ['Интерес к биологии', 'Биология как профессия'],
                 datasets: [{
-                    label: 'На старте',
+                    label: 'Начало внеурочной деятельности',
                     data: [35, 15],
                     backgroundColor: '#81c784'
                 }, {
-                    label: 'На финише',
+                    label: 'Конец внеурочной деятельности',
                     data: [67, 41],
                     backgroundColor: '#29b6f6'
                 }]
             },
             options: {
                 indexAxis: 'y',
-                responsive: true,
                 scales: {
                     x: {
                         beginAtZero: true,
                         max: 100,
                         title: {
                             display: true,
-                            text: 'Процент учащихся'
+                            text: 'Процент обучающихся'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
                         }
                     }
                 },
                 plugins: {
-                    legend: { position: 'top' },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `${context.dataset.label}: ${context.parsed.x}%`;
+                                return `${context.dataset.label}: ${context.parsed.x}% обучающихся`;
                             }
                         }
                     }
@@ -502,23 +1189,21 @@
         });
 
         // Блок 3: Метапредметные навыки
-        const ctx5 = document.getElementById('chart5').getContext('2d');
-        new Chart(ctx5, {
+        const chart5 = createProportionalChart('chart5', {
             type: 'bar',
             data: {
-                labels: ['Цифровая грамотность (%)', 'Выступления на школьных конференциях (%)', 'Выступления на внешних конкурсах (%)'],
+                labels: ['Цифровая грамотность', 'Выступления в школе', 'Участие в конкурсах'],
                 datasets: [{
-                    label: 'На старте',
+                    label: 'Начало внеурочной деятельности',
                     data: [30, 22, 5],
                     backgroundColor: '#aed581'
                 }, {
-                    label: 'На финише',
+                    label: 'Конец внеурочной деятельности',
                     data: [85, 63, 28],
                     backgroundColor: '#4dd0e1'
                 }]
             },
             options: {
-                responsive: true,
                 indexAxis: 'y',
                 scales: {
                     x: {
@@ -526,16 +1211,18 @@
                         max: 100,
                         title: {
                             display: true,
-                            text: 'Процент учащихся'
+                            text: 'Процент обучающихся'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
                         }
                     }
                 },
                 plugins: {
-                    legend: { position: 'top' },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                return `${context.dataset.label}: ${context.parsed.x}%`;
+                                return `${context.dataset.label}: ${context.parsed.x}% обучающихся`;
                             }
                         }
                     }
@@ -544,30 +1231,18 @@
         });
 
         // Блок 4: Обратная связь
-        const ctx6 = document.getElementById('chart6').getContext('2d');
-        new Chart(ctx6, {
+        const chart6 = createProportionalChart('chart6', {
             type: 'bar',
             data: {
-                labels: [
-                    'Онлайн-викторины (Kahoot!/Quizizz)',
-                    'Комментарии в цифровом портфолио',
-                    'Видеозаписи экспериментов',
-                    'Графики личного прогресса'
-                ],
+                labels: ['Онлайн-викторины', 'Комментарии в портфолио', 'Видеозаписи', 'Графики прогресса'],
                 datasets: [{
-                    label: '% учащихся с положительными отзывами',
+                    label: '% положительных отзывов',
                     data: [92, 88, 76, 68],
-                    backgroundColor: [
-                        '#ff7043',
-                        '#4db6ac',
-                        '#7986cb',
-                        '#ba68c8'
-                    ]
+                    backgroundColor: ['#ff7043', '#4db6ac', '#7986cb', '#ba68c8']
                 }]
             },
             options: {
                 indexAxis: 'y',
-                responsive: true,
                 scales: {
                     x: {
                         beginAtZero: true,
@@ -575,11 +1250,16 @@
                         title: {
                             display: true,
                             text: 'Процент положительных отзывов'
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
                         }
                     }
                 },
                 plugins: {
-                    legend: { position: 'top' },
+                    legend: {
+                        display: false
+                    },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
@@ -590,7 +1270,332 @@
                 }
             }
         });
+
+        // Элементы управления и интерактивность
+        document.addEventListener('DOMContentLoaded', function() {
+            // Навигация по точкам
+            const navDots = document.querySelectorAll('.nav-dot');
+            const sections = document.querySelectorAll('section, .conclusion, .recommendations, .analytical-block');
+            
+            navDots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    const targetElement = document.getElementById(sectionId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ 
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                        
+                        // Обновление активной точки
+                        navDots.forEach(d => d.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Фокусировка на элементе для доступности
+                        setTimeout(() => {
+                            targetElement.focus();
+                        }, 1000);
+                    }
+                });
+            });
+
+            // Отслеживание активной секции при прокрутке
+            const observerOptions = {
+                threshold: 0.3,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+                        
+                        // Обновление активной точки навигации
+                        navDots.forEach(dot => {
+                            dot.classList.remove('active');
+                            if (dot.getAttribute('data-section') === sectionId) {
+                                dot.classList.add('active');
+                            }
+                        });
+                        
+                        // Анимация появления для секций
+                        if (!entry.target.classList.contains('animated')) {
+                            entry.target.classList.add('animate-in', 'animated');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // Кнопка экспорта и печати A4
+            const exportBtn = document.getElementById('exportBtn');
+            exportBtn.addEventListener('click', function() {
+                // Создаем компактный отчет для печати
+                const printWindow = window.open('', '_blank');
+                const currentDate = new Date().toLocaleDateString('ru-RU');
+                
+                printWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title>Отчет: Мониторинг внеурочной деятельности по биологии</title>
+                        <style>
+                            @page {
+                                size: A4;
+                                margin: 1.5cm;
+                            }
+                            body {
+                                font-family: Arial, sans-serif;
+                                font-size: 11pt;
+                                line-height: 1.4;
+                                color: #000;
+                                margin: 0;
+                                padding: 0;
+                            }
+                            .header {
+                                text-align: center;
+                                margin-bottom: 1.5cm;
+                                border-bottom: 2px solid #000;
+                                padding-bottom: 0.5cm;
+                            }
+                            h1 {
+                                font-size: 16pt;
+                                color: #2e7d32;
+                                margin: 0 0 0.3cm 0;
+                            }
+                            .subtitle {
+                                font-size: 10pt;
+                                color: #666;
+                            }
+                            .section {
+                                page-break-inside: avoid;
+                                margin-bottom: 1cm;
+                            }
+                            h2 {
+                                font-size: 14pt;
+                                color: #2e7d32;
+                                border-bottom: 1px solid #ddd;
+                                padding-bottom: 0.2cm;
+                                margin: 0.5cm 0;
+                            }
+                            h3 {
+                                font-size: 12pt;
+                                color: #1976d2;
+                                margin: 0.3cm 0;
+                            }
+                            .highlight {
+                                font-size: 16pt;
+                                font-weight: bold;
+                                color: #f57c00;
+                                text-align: center;
+                                margin: 0.5cm 0;
+                                padding: 0.3cm;
+                                background: #fff8e1;
+                                border: 1px solid #ffd54f;
+                                border-radius: 5px;
+                            }
+                            .stats-grid {
+                                display: grid;
+                                grid-template-columns: repeat(2, 1fr);
+                                gap: 0.5cm;
+                                margin: 0.5cm 0;
+                            }
+                            .stat-item {
+                                border: 1px solid #ddd;
+                                padding: 0.3cm;
+                                border-radius: 3px;
+                                text-align: center;
+                            }
+                            .stat-value {
+                                font-size: 14pt;
+                                font-weight: bold;
+                                color: #2e7d32;
+                            }
+                            .stat-label {
+                                font-size: 9pt;
+                                color: #666;
+                            }
+                            ul, ol {
+                                margin: 0.3cm 0 0.3cm 1cm;
+                                padding: 0;
+                            }
+                            li {
+                                margin-bottom: 0.2cm;
+                            }
+                            .footer {
+                                margin-top: 2cm;
+                                padding-top: 0.5cm;
+                                border-top: 1px solid #000;
+                                font-size: 9pt;
+                                color: #666;
+                                text-align: center;
+                            }
+                            .contact {
+                                font-weight: bold;
+                                margin-top: 0.3cm;
+                            }
+                            @media print {
+                                .page-break {
+                                    page-break-before: always;
+                                }
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="header">
+                            <h1>Использование современных технологий мониторинга и диагностики образовательных результатов обучающихся</h1>
+                            <div class="subtitle">В процессе внеурочной деятельности по биологии (2024/2025 уч. г., N = 120)</div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="highlight">Ключевой результат: Прирост среднего балла +24 балла</div>
+                            
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-value">+53%</div>
+                                    <div class="stat-label">Качество исследований</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">+26%</div>
+                                    <div class="stat-label">Проф. самоопределение</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">+55%</div>
+                                    <div class="stat-label">Цифровая грамотность</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value">81%</div>
+                                    <div class="stat-label">Конструктивное участие</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <h2>Ключевые выводы</h2>
+                            <ul>
+                                <li>Технологии делают образовательный прогресс измеримым</li>
+                                <li>Мотивационная сфера обучающихся значительно изменяется</li>
+                                <li>Формируется цифрово-исследовательская грамотность</li>
+                                <li>Обратная связь становится драйвером роста</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="section">
+                            <h2>Рекомендации для педагогов</h2>
+                            <ol>
+                                <li>Внедряйте цифровые платформы мониторинга системно</li>
+                                <li>Делайте акцент на формирующем оценивании</li>
+                                <li>Визуализируйте образовательный прогресс</li>
+                                <li>Фокусируйтесь на профессиональном самоопределении</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="page-break"></div>
+                        
+                        <div class="section">
+                            <h2>Аналитическая часть</h2>
+                            
+                            <h3>1. Обоснование мониторингового исследования</h3>
+                            <p>Мониторинг обеспечивает системность, объективность, диагностическую функцию и ориентацию на развитие образовательного процесса.</p>
+                            
+                            <h3>2. Логика инфографики</h3>
+                            <p>Блочная структура, динамический подход, иерархия информации обеспечивают комплексный анализ образовательных достижений.</p>
+                            
+                            <h3>3. Цели и задачи управления познавательной деятельностью</h3>
+                            <ul>
+                                <li><strong>Цели:</strong> Повышение качества знаний до 85 баллов, исследовательских компетенций до 85%</li>
+                                <li><strong>Задачи:</strong> Дифференциация, мотивация, развитие исследовательских навыков, совершенствование обратной связи</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer">
+                            <p>Данные получены в рамках исследовательского проекта «Исследовательский клуб "Биосфера"»</p>
+                            <p>Все данные основаны на результатах 120 учащихся 7–9 классов</p>
+                            <p class="contact">Контакты: ragozina.ta@gmail.com</p>
+                            <p>Отчет сформирован: ${currentDate}</p>
+                        </div>
+                    </body>
+                    </html>
+                `);
+                
+                printWindow.document.close();
+                
+                // Даем время на загрузку и затем печатаем
+                setTimeout(() => {
+                    printWindow.print();
+                }, 500);
+                
+                // Анимация кнопки
+                const originalText = exportBtn.innerHTML;
+                exportBtn.innerHTML = '🖨️ Печать...';
+                exportBtn.style.backgroundColor = '#2e7d32';
+                
+                setTimeout(() => {
+                    exportBtn.innerHTML = originalText;
+                    exportBtn.style.backgroundColor = '';
+                }, 2000);
+            });
+
+            // Переключение анимаций
+            const toggleAnimationsBtn = document.getElementById('toggleAnimations');
+            let animationsEnabled = true;
+            
+            toggleAnimationsBtn.addEventListener('click', function() {
+                animationsEnabled = !animationsEnabled;
+                
+                if (animationsEnabled) {
+                    document.body.classList.remove('no-animations');
+                    toggleAnimationsBtn.innerHTML = '⛔ Выключить анимации';
+                } else {
+                    document.body.classList.add('no-animations');
+                    toggleAnimationsBtn.innerHTML = '⚡ Включить анимации';
+                }
+            });
+
+            // Прокрутка к аналитике
+            const scrollToAnalyticsBtn = document.getElementById('scrollToAnalytics');
+            scrollToAnalyticsBtn.addEventListener('click', function() {
+                document.getElementById('analytics').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+
+            // Добавление стилей для режима без анимаций
+            const style = document.createElement('style');
+            style.textContent = `
+                .no-animations * {
+                    animation: none !important;
+                    transition: none !important;
+                }
+                .no-animations .tool-card:hover,
+                .no-animations .recommend-card:hover,
+                .no-animations .chart-container:hover,
+                .no-animations .question-section:hover {
+                    transform: none !important;
+                }
+                .no-animations .highlight-number {
+                    animation: none !important;
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Инициализация первой активной точки
+            if (navDots.length > 0) {
+                navDots[0].classList.add('active');
+            }
+
+            // Автоматическое обновление даты в футере
+            const currentYear = new Date().getFullYear();
+            const yearElement = document.querySelector('footer p:last-child');
+            if (yearElement && yearElement.textContent.includes('2024')) {
+                yearElement.innerHTML = yearElement.innerHTML.replace('2024', currentYear);
+            }
+        });
     </script>
 </body>
 </html>
-
